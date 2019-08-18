@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: proxy-svc
+  name: app-ui-svc-proxy
   labels:
-    app: proxy
+    app: app-ui
+    set: proxy
 spec:
   type: NodePort
   ports:
-  - port: 80
+  - port: 8088
     nodePort: 31000
     protocol: TCP
   selector:
-    app: proxy
-
-
+    app: app-ui
+    set: proxy

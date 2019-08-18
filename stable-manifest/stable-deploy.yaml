@@ -1,12 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stable-blue
+  name: app-ui-blue
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: stable-ui-blue
+      app: app-ui
+      set: blue
   minReadySeconds: 10
   strategy:
     type: RollingUpdate
@@ -16,11 +17,12 @@ spec:
   template:
     metadata:
       labels:
-        app: stable-ui-blue
+        app: app-ui
+        set: blue
     spec:
       containers:
-      - name: stable
-        image: stable:latest
+      - name: app-ui-blue
+        image: app-ui:blue
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

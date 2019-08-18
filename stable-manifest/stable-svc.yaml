@@ -1,9 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: stable-svc-blue
+  name: app-ui-svc-blue
   labels:
-    app: stable-ui-blue
+    app: app-ui
+    set: blue
 spec:
   type: NodePort
   ports:
@@ -11,6 +12,7 @@ spec:
     nodePort: 30001
     protocol: TCP
   selector:
-    app: stable-ui-blue
+    app: app-ui
+    set: blue
 
 

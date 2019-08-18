@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: app-ui-proxy
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: app-ui
@@ -20,21 +20,28 @@ spec:
         app: app-ui
         set: proxy
     spec:
+      volumes:
+        - name: app-ui-configmap-volume
+          configMap:
+            name: app-ui-configmap
       containers:
-      - name: app-ui-proxy
-        image: app-ui:proxy-v1.1
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8088
-        readinessProbe:
-          initialDelaySeconds: 5
-          failureThreshold: 1
-          httpGet:
-            path: /
-            port: 8088
-        livenessProbe:
-          initialDelaySeconds: 5
-          failureThreshold: 1
-          httpGet:
-            path: /
-            port: 8088
+        - name: app-ui-proxy
+          image: app-ui:proxy-v1.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8088
+          volumeMounts:
+            - name: app-ui-configmap-volume
+              mountPath: /etc/config
+          readinessProbe:
+            initialDelaySeconds: 5
+            failureThreshold: 1
+            httpGet:
+              path: /
+              port: 8088
+          livenessProbe:
+            initialDelaySeconds: 5
+            failureThreshold: 1
+            httpGet:
+              path: /
+              port: 8088

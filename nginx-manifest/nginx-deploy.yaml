@@ -26,7 +26,7 @@ spec:
             name: app-ui-configmap
       containers:
         - name: app-ui-proxy
-          image: app-ui:proxy-v1.0
+          image: app-ui:proxy-v1.2
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8088
@@ -37,11 +37,11 @@ spec:
             initialDelaySeconds: 5
             failureThreshold: 1
             httpGet:
-              path: /
+              path: /health
               port: 8088
           livenessProbe:
             initialDelaySeconds: 5
             failureThreshold: 1
             httpGet:
-              path: /
+              path: /health
               port: 8088

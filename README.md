@@ -23,8 +23,10 @@ docker build -t app-ui:canary .
 ## Deploy to k8s
 
 ### Confirm configmap for openresty setting
-change the cluster ip in the default.conf 
-
+change the cluster ip in the default.conf to your current minikube
+```
+kubectl cluster-info
+```
 
 ### Deploy configmap first
 

@@ -18,7 +18,7 @@ eval $(minikube docker-env)
 ```
 docker build -t app-ui:proxy-v1 nginx-proxy/.
 docker build -t app-ui:stable stable-app/.
-docker build -t app-ui:canary .
+docker build -t app-ui:canary canary-app/.
 ```
 ## Deploy to k8s
 

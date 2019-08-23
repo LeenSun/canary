@@ -32,7 +32,7 @@ data:
             ngx.header["Set-Cookie"] = { "CNRT=" .. tostring(token) .. "; Path=/;" }
           end
 
-          local ratio = 5000
+          local ratio = 6000
 
           local bucket = (token % 10000)
           if  (bucket < ratio) then

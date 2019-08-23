@@ -44,4 +44,8 @@ kubectl apply -f canary-manifest
 kubectl apply -f nginx-manifest/nginx-svc.yaml
 kubectl apply -f nginx-manifest/nginx-deploy.yaml
 ```
-
+## Change Canary Weight
+```
+vi nginx-manifest/nginx-cm.yaml
+## Change the RATIO variable range 100(1%)~10000(100%)
+```

@@ -23,16 +23,20 @@ spec:
       volumes:
         - name: app-ui-configmap-volume
           configMap:
-            name: app-ui-configmap
+            name: app-ui-cm
       containers:
         - name: app-ui-proxy
-          image: app-ui:proxy-v1.2
+          image: app-ui:proxy-v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8088
           volumeMounts:
             - name: app-ui-configmap-volume
+              mountPath: /etc/nginx/conf.d
+              readOnly: true
+            - name: app-ui-configmap-volume
               mountPath: /etc/config
+              readOnly: true
           readinessProbe:
             initialDelaySeconds: 5
             failureThreshold: 1
@@ -45,3 +49,13 @@ spec:
             httpGet:
               path: /health
               port: 8088
+        - name: configmap-reload
+          image: jimmidyson/configmap-reload:v0.3.0
+          args:
+            - "--volume-dir=/etc/config"
+            - "--webhook-method=GET"
+            - "--webhook-url=http://localhost:9099/reload"
+          volumeMounts:
+            - name: app-ui-configmap-volume
+              mountPath: /etc/config
+              readOnly: true

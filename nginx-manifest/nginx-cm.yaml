@@ -23,7 +23,7 @@ data:
         root   /usr/local/openresty/nginx/html;
         index  index.html index.htm;
 
-        set $clusterIp '192.168.99.106';
+        set $clusterIp '192.168.99.107';
         set $targetPort '30001';
         access_by_lua_block {
           local token = ngx.var.cookie_CNRT
@@ -32,7 +32,7 @@ data:
             ngx.header["Set-Cookie"] = { "CNRT=" .. tostring(token) .. "; Path=/;" }
           end
 
-          local ratio = 4000
+          local ratio = 5000
 
           local bucket = (token % 10000)
           if  (bucket < ratio) then

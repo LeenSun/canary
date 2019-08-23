@@ -5,7 +5,7 @@ This is just an example of using openresty to achieve canary release.
 ## Getting Started
 
 ### Prerequisites
-* minikube 1.13+
+* minikube 1.3+
 * docker daemon
 * kubectl 1.14+
 
@@ -23,15 +23,16 @@ docker build -t app-ui:canary canary-app/.
 ## Deploy to k8s
 
 ### Confirm configmap for openresty setting
-change the cluster ip in the default.conf to your current minikube
 ```
 kubectl cluster-info
+#change the cluster ip in the default.conf to your current minikube
+set $clusterIp '192.168.99.{your ip}';
 ```
 
 ### Deploy configmap first
 
 ```
-kubectl apply -f nginx-proxy/nginx-cm.yaml
+kubectl apply -f nginx-manifest/nginx-cm.yaml
 ```
 ### Deploy applications
 ```
@@ -40,6 +41,7 @@ kubectl apply -f canary-manifest
 ```
 ### Deploy proxy
 ```
-kubectl apply -f nginx-proxy/nginx-svc.yaml
-kubectl apply -f nginx-proxy/nginx-deploy.yaml
+kubectl apply -f nginx-manifest/nginx-svc.yaml
+kubectl apply -f nginx-manifest/nginx-deploy.yaml
 ```
+
